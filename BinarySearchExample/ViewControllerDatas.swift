@@ -29,32 +29,22 @@ class ViewControllerDatas: CollectionDatas {
         
         computeArrayInteger(sortedArray: sortedArray, minIndex: 0, maxIndex: sortedArray.count - 1)
         
-        computeFindInteger()
+        computeData()
     }
     
-
-    
-    
-    func computeFindInteger() {
-        let sectionFindInteger = SectionDescriptable().uid("computeFindInteger")
+    func computeData() {
+       
         if let valueTofFind = valueTofFind {
-            sectionFindInteger.cells.append(CellFactory.valuesToFindCell(valueTofFind: valueTofFind))
-        }
-
-        if !sectionFindInteger.cells.isEmpty {
-            sections.append(sectionFindInteger)
-            let indexElementFound = binarySearch(arrayInteger: sortedArray, minIndex: 0, maxIndex: sortedArray.count - 1, valueToFind: valueTofFind!)
+            computeFindInteger(valueTofFind: valueTofFind)
             
-            let Textsection = SectionDescriptable().uid("\(valueTofFind)")
-            Textsection.cells.append(TextDescriptable(attributedText: AttributtedStringFactory.blueAttributeTextForString(text: "The index for the value \(valueTofFind!) is \(indexElementFound)")).uid("\(valueTofFind)"))
-            sections.append(Textsection)
+            let indexElementFound = binarySearch(arrayInteger: sortedArray, minIndex: 0, maxIndex: sortedArray.count - 1, valueToFind: valueTofFind)
             
+            computeTextResult(valueTofFind: valueTofFind, indexElementFound: indexElementFound)
         }
-        
     }
     
+    //MARK: BinarySearch
     func binarySearch(arrayInteger: [Int], minIndex: Int, maxIndex: Int, valueToFind: Int) -> Int {
-        
         let newIndex = minIndex + Int((CGFloat(maxIndex - minIndex) / 2))
         if arrayInteger[newIndex] > valueToFind {
             computeArrayInteger(sortedArray: Array(sortedArray[minIndex...newIndex]), minIndex: minIndex, maxIndex: newIndex)
@@ -69,14 +59,25 @@ class ViewControllerDatas: CollectionDatas {
         return 0
     }
     
+    //MARK: Drawing methods
+    func computeFindInteger(valueTofFind: Int) {
+        let sectionFindInteger = SectionDescriptable().uid("computeFindInteger")
+        sectionFindInteger.cells.append(CellDescriptableFactory.labelValueCell(valueTofFind: valueTofFind))
+        sections.append(sectionFindInteger)
+    }
     
+    func computeTextResult(valueTofFind: Int, indexElementFound: Int) {
+        let Textsection = SectionDescriptable().uid("\(valueTofFind)")
+        Textsection.cells.append(CellDescriptableFactory.labelValueFindedCell(valueTofFind: valueTofFind, indexElementFound: indexElementFound))
+        sections.append(Textsection)
+    }
     
     // Draw the cells
     var numberTimesCalled = 0
     func computeArrayInteger(sortedArray: [Int], minIndex: Int, maxIndex: Int) {
         if numberTimesCalled > 0 {
             let Textsection = SectionDescriptable().uid("text\(numberTimesCalled)")
-            Textsection.cells.append(TextDescriptable(attributedText:  AttributtedStringFactory.blueAttributeTextForString(text: "Selection Number \(numberTimesCalled)")).uid("Textsection"))
+            Textsection.cells.append(CellDescriptableFactory.numberTimesCalledCell(numberTimesCalled: numberTimesCalled))
             sections.append(Textsection)
         }
         
@@ -92,15 +93,15 @@ class ViewControllerDatas: CollectionDatas {
     
     func computeRules() {
         let section = SectionDescriptable().uid("computeRules")
-        let blueTextDescriptable = CellFactory.computeBlueCellRules()
+        let blueTextDescriptable = CellDescriptableFactory.computeBlueCellRules()
         section.cells.append(blueTextDescriptable)
         section.cells.append(IntegerDescriptable(integer: 20, color: UIColor.blue).uid("blueInteger"))
         
-        let greenTextDescriptable = CellFactory.computeGreenCellRules()
+        let greenTextDescriptable = CellDescriptableFactory.computeGreenCellRules()
         section.cells.append(greenTextDescriptable)
         section.cells.append(IntegerDescriptable(integer: 30, color: UIColor.green).uid("greenInteger"))
         
-        let redTextDescriptable = CellFactory.computeRedCellRules()
+        let redTextDescriptable = CellDescriptableFactory.computeRedCellRules()
         section.cells.append(redTextDescriptable)
         section.cells.append(IntegerDescriptable(integer: 60, color: UIColor.red).uid("redInteger"))
         sections.append(section)

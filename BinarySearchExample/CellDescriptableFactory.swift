@@ -8,14 +8,21 @@
 
 import Foundation
 
-class CellFactory {
+class CellDescriptableFactory {
     
     
-    static func valuesToFindCell(valueTofFind: Int) -> CollectionCellDescribable {
-        return TextDescriptable(attributedText: AttributtedStringFactory.blueAttributeTextForString(text: "We are looking for the value \(valueTofFind)")).uid("\(valueTofFind)")
+    static func numberTimesCalledCell(numberTimesCalled: Int) -> CollectionCellDescribable {
+        return TextDescriptable(attributedText:  AttributtedStringFactory.blueAttributeTextForString(text: "Selection Number \(numberTimesCalled)")).uid("Textsection")
     }
     
-
+    static func labelValueFindedCell(valueTofFind: Int, indexElementFound: Int) -> CollectionCellDescribable {
+        let attributedString = AttributtedStringFactory.blueAttributeTextForString(text: "The index for the value \(valueTofFind) is \(indexElementFound)")
+        return TextDescriptable(attributedText: attributedString).uid("\(valueTofFind)")
+    }
+    
+    static func labelValueCell(valueTofFind: Int) -> CollectionCellDescribable {
+        return TextDescriptable(attributedText: AttributtedStringFactory.blueAttributeTextForString(text: "We are looking for the value \(valueTofFind)")).uid("\(valueTofFind)")
+    }
     
     static func computeBlueCellRules() -> CollectionCellDescribable {
         let blueTextDescriptable = TextDescriptable(attributedText:AttributtedStringFactory.blueAttributeTextForString(text: "A number below the middle range of index will be blue")).uid("blue")
