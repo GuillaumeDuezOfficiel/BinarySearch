@@ -11,9 +11,7 @@ import UIKit
 
 class ViewControllerDatas: CollectionDatas {
     
-    let sortedArray: [Int] = [12, 18, 22, 36, 54, 96, 128, 402, 496, 602, 728, 2080]
-    let steps: [[Int]] = []
-
+    let sortedArray: [Int] = [12, 18, 22, 36, 54, 96, 128, 402, 496, 602, 728, 980]
     var valueTofFind : Int?
     
     override init() {
@@ -61,24 +59,23 @@ class ViewControllerDatas: CollectionDatas {
     
     //MARK: Drawing methods
     func computeFindInteger(valueTofFind: Int) {
-        let sectionFindInteger = SectionDescriptable().uid("computeFindInteger")
-        sectionFindInteger.cells.append(CellDescriptableFactory.labelValueCell(valueTofFind: valueTofFind))
-        sections.append(sectionFindInteger)
+        let sectionLookingForValue = SectionDescriptable().uid("computeFindInteger")
+        sectionLookingForValue.cells.append(CellDescriptableFactory.labelValueCell(valueTofFind: valueTofFind))
+        sections.append(sectionLookingForValue)
     }
     
     func computeTextResult(valueTofFind: Int, indexElementFound: Int) {
-        let Textsection = SectionDescriptable().uid("\(valueTofFind)")
-        Textsection.cells.append(CellDescriptableFactory.labelValueFindedCell(valueTofFind: valueTofFind, indexElementFound: indexElementFound))
-        sections.append(Textsection)
+        let textResultSection = SectionDescriptable().uid("\(valueTofFind)")
+        textResultSection.cells.append(CellDescriptableFactory.labelValueFindedCell(valueTofFind: valueTofFind, indexElementFound: indexElementFound))
+        sections.append(textResultSection)
     }
     
-    // Draw the cells
     var numberTimesCalled = 0
     func computeArrayInteger(sortedArray: [Int], minIndex: Int, maxIndex: Int) {
         if numberTimesCalled > 0 {
-            let Textsection = SectionDescriptable().uid("text\(numberTimesCalled)")
-            Textsection.cells.append(CellDescriptableFactory.numberTimesCalledCell(numberTimesCalled: numberTimesCalled))
-            sections.append(Textsection)
+            let numberIterate = SectionDescriptable().uid("text\(numberTimesCalled)")
+            numberIterate.cells.append(CellDescriptableFactory.numberTimesCalledCell(numberTimesCalled: numberTimesCalled))
+            sections.append(numberIterate)
         }
         
         let newIndex = minIndex + Int((CGFloat(maxIndex - minIndex) / 2))
@@ -93,16 +90,13 @@ class ViewControllerDatas: CollectionDatas {
     
     func computeRules() {
         let section = SectionDescriptable().uid("computeRules")
-        let blueTextDescriptable = CellDescriptableFactory.computeBlueCellRules()
-        section.cells.append(blueTextDescriptable)
+        section.cells.append(CellDescriptableFactory.computeBlueCellRules())
         section.cells.append(IntegerDescriptable(integer: 20, color: UIColor.blue).uid("blueInteger"))
         
-        let greenTextDescriptable = CellDescriptableFactory.computeGreenCellRules()
-        section.cells.append(greenTextDescriptable)
+        section.cells.append(CellDescriptableFactory.computeGreenCellRules())
         section.cells.append(IntegerDescriptable(integer: 30, color: UIColor.green).uid("greenInteger"))
         
-        let redTextDescriptable = CellDescriptableFactory.computeRedCellRules()
-        section.cells.append(redTextDescriptable)
+        section.cells.append(CellDescriptableFactory.computeRedCellRules())
         section.cells.append(IntegerDescriptable(integer: 60, color: UIColor.red).uid("redInteger"))
         sections.append(section)
     }

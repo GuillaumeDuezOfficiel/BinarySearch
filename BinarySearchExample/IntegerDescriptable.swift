@@ -28,7 +28,7 @@ class IntegerDescriptable: CollectionCellDescribable {
     }
     
     func size(_ collectionView: UICollectionView, sectionDescriptor: CollectionSectionDescribable) -> CGSize {
-        return CGSize(width: 50, height: 50)
+        return CGSize(width: 40, height: 40)
     }
     
 }

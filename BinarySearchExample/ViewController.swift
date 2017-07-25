@@ -12,8 +12,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var identiferCell = "IntegerCollectionViewCell"
-    
     fileprivate(set) lazy var collectionViewDelegate: CollectionDelegate = CollectionDelegate(delegate: self)
     fileprivate(set) lazy var collectionViewDatasource: CollectionDataSource = CollectionDataSource(delegate: self)
     
@@ -21,9 +19,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-      //  collectionView.register(IntegerCollectionViewCell.class, forCellWithReuseIdentifier: identiferCell)
         setupCollectionView()
         
     }
@@ -31,24 +26,12 @@ class ViewController: UIViewController {
     func setupCollectionView() {
         bind(collectionView: collectionView, with: datas, and: collectionViewDelegate, and: collectionViewDatasource)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    
 }
 
-extension ViewController: UICollectionViewDelegate {
-    
-}
 
 extension ViewController : CollectionDidSelectCellDelegate {
     func didSelect(_ cellDescriptor: CollectionCellDescribable, sectionDescriptor: CollectionSectionDescribable, indexPath: IndexPath) {
-        var cell = collectionView.cellForItem(at: indexPath)
-        
+        let cell = collectionView.cellForItem(at: indexPath)
         if let cell = cell as? IntegerCollectionViewCell {
             let number = Int((cell.label.text)!)
             if let number = number {
@@ -73,6 +56,9 @@ protocol UserEventDelegate : CollectionUserEventDelegate {
 extension ViewController : UserEventDelegate {
 
 func onUserEvent(_ event: UserEvent, cell: UICollectionViewCell) {
-    
     }
 }
+
+extension ViewController: UICollectionViewDelegate {
+}
+
